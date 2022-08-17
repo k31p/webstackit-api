@@ -10,7 +10,7 @@ class Konsultasi extends Model
     use HasFactory;
 
     protected $table = "konsultasi";
-    protected $primaryKey = "id";
+    protected $primaryKey = "idKonsultasi";
     protected $fillable = [
         'idPasien', 'penyakit', 'idDokter', 
     ];

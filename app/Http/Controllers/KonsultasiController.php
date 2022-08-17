@@ -14,12 +14,34 @@ class KonsultasiController extends Controller
         ]);
     }
 
-    public function updateData(Request $request){
-        // $request->validate([
+    public function updateData(Request $request, $id){
+        try {
+            $request->validate([
+                'idPasien' => 'required',
+                'penyakit' => 'required',
+                'idDokter' => 'required',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "message" => $th->getMessage(),
+            ], 400);
+        }
+        try {
+            $data = Konsultasi::find($id);
+            $data->idPasien = $request->idPasien;
+            $data->penyakit = $request->penyakit;
+            $data->idDokter = $request->idDokter;
+            $data->save();
 
-        // ]);
+            return response()->json([
+                "message" => "Data berhasil diubah"
+            ]);
+        } catch (\Exception $th) {
+            return response()->json([
+                "message" => $th->getMessage()
+            ], 500);
+        }
         
-        // $data = Konsultasi::find($request->id);
-        // $data;
+        
     }
 }
